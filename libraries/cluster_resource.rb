@@ -15,15 +15,27 @@ class Chef
       end
 
       def memory_quota_mb(arg=nil)
-        set_or_return(:memory_quota_mb, arg, :kind_of => Integer, :required => true, :callbacks => {
-        	"must be at least 256" => lambda { |quota| quota >= 256 }
+        set_or_return(:memory_quota_mb, arg, :kind_of => Integer, :required => false, :callbacks => {
+        	"must be at least 256" => lambda { |quota| !quota.nil? && quota >= 256 }
       	})
+      end
+
+      def members(arg=nil)
+        set_or_return(:members, arg, :kind_of => Array, :required => false)
+      end
+
+      def members_finder(arg=nil)
+        set_or_return(:members_finder, arg, :kind_of => Proc, :required => false)
+      end
+
+      def converge_timeout(arg=120)
+        set_or_return(:converge_timeout, arg, :kind_of => Integer, :required => false)
       end
 
       def initialize(*)
         super
-        @action = :create_if_missing
-        @allowed_actions.push :create_if_missing
+        @action = :nothing
+        @allowed_actions.push(:converge,:create_if_missing)
         @resource_name = :couchbase_cluster
       end
     end
