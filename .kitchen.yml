@@ -52,14 +52,13 @@ suites:
   - recipe[couchbase::server]
   - recipe[couchbase::cluster]
   - recipe[couchbase::buckets]
-  - recipe[couchbase::web]
   attributes:
     couchbase:
       cluster:
         name: "dev"
+        username: "admin"
+        password: "test1234"
         memory_quota_mb: 500
-      server:
-        password: "whatever"
       buckets:
         memcachedtest:
           cluster: "dev"
@@ -69,7 +68,7 @@ suites:
         couchbasetest:
           cluster: "dev"
           type: "couchbase"
-          saslpassword: "nevertellanyone"
+          saslpassword: "mustbedifferent"
           memory_quota_percent: 0.5
 
 - name: server-enterprise
@@ -78,14 +77,16 @@ suites:
   - recipe[couchbase::server]
   - recipe[couchbase::cluster]
   - recipe[couchbase::buckets]
-  - recipe[couchbase::web]
   attributes:
     couchbase:
+      server:
+        edition: "enterprise"
+        version: "2.2.0"
       cluster:
         name: "dev"
+        username: "admin"
+        password: "test1234"
         memory_quota_mb: 500
-      server:
-        password: "whatever"
       buckets:
         memcachedtest:
           cluster: "dev"
@@ -95,7 +96,7 @@ suites:
         couchbasetest:
           cluster: "dev"
           type: "couchbase"
-          saslpassword: "nevertellanyone"
+          saslpassword: "mustbedifferent"
           memory_quota_percent: 0.5
 
 - name: moxi

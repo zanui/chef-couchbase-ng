@@ -27,6 +27,6 @@
 couchbase_cluster node['couchbase']['cluster']['name'] do
   memory_quota_mb node['couchbase']['cluster']['memory_quota_mb']
 
-  username node['couchbase']['server']['username']
-  password node['couchbase']['server']['password']
+  username node['couchbase']['cluster']['username']
+  password node['couchbase']['cluster']['password']
 end
