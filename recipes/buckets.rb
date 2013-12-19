@@ -25,7 +25,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-node['couchbase']['server']['buckets'].each do |bucket_name, bucket_config|
+node['couchbase']['buckets'].each do |bucket_name, bucket_config|
   bucket_config = {} if bucket_config.nil? or [TrueClass, FalseClass].include?(bucket_config.class)
 
   couchbase_bucket bucket_name do

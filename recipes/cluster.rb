@@ -24,8 +24,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-couchbase_cluster node['couchbase']['server']['cluster'] do
-  memory_quota_mb node['couchbase']['server']['memory_quota_mb']
+couchbase_cluster node['couchbase']['cluster']['name'] do
+  memory_quota_mb node['couchbase']['cluster']['memory_quota_mb']
 
   username node['couchbase']['server']['username']
   password node['couchbase']['server']['password']

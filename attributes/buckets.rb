@@ -27,4 +27,4 @@
 
 include_attribute "couchbase::server"
 
-default['couchbase']['server']['buckets'] = Chef::DataBagItem.load('couchbase', 'buckets')[node.chef_environment] rescue {}
+default['couchbase']['buckets'] = Chef::DataBagItem.load('couchbase', 'buckets')[node.chef_environment] rescue {}

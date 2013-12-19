@@ -29,11 +29,11 @@ describe_recipe "couchbase::test_buckets" do
       end
 
       it "has correct quota" do
-        bucket.must_have :memory_quota_mb, node['couchbase']['server']['memory_quota_mb']
+        bucket.must_have :memory_quota_mb, node['couchbase']['cluster']['memory_quota_mb']
       end if bucket_config['memory_quota_mb']
 
       it "has correct quota" do
-        bucket.must_have :memory_quota_mb, (node['couchbase']['server']['memory_quota_mb'] * bucket_config['memory_quota_percent']).to_i
+        bucket.must_have :memory_quota_mb, (node['couchbase']['cluster']['memory_quota_mb'] * bucket_config['memory_quota_percent']).to_i
       end if bucket_config['memory_quota_percent']
 
       it "has correct saslpassword" do

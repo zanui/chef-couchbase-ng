@@ -26,4 +26,5 @@
 
 include_attribute "couchbase::server"
 
-default['couchbase']['server']['cluster'] = "default"
+default['couchbase']['cluster']['name'] = "default"
+default['couchbase']['cluster']['memory_quota_mb'] = Couchbase::MaxMemoryQuotaCalculator.from_node(node).in_megabytes

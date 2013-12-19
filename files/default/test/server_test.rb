@@ -79,7 +79,7 @@ describe_recipe "couchbase::server" do
     end
 
     it "has its memory quota configured" do
-      cluster.must_have :memory_quota_mb, node["couchbase"]["server"]["memory_quota_mb"]
+      cluster.must_have :memory_quota_mb, node["couchbase"]["cluster"]["memory_quota_mb"]
     end
   end
 end
