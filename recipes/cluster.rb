@@ -1,9 +1,8 @@
 #
 # Cookbook Name:: couchbase
-# Attributes:: buckets
+# Recipe:: cluster
 #
-# Author:: Enrico Stahn (<mail@enricostahn.com>)
-# Copyright (C) 2013, Zanui
+# Author:: Chris Armstrong (<chris@chrisarmstrong.me>)
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -25,6 +24,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_attribute "couchbase::server"
+couchbase_cluster node['couchbase']['server']['cluster'] do
+  memory_quota_mb node['couchbase']['server']['memory_quota_mb']
 
-default['couchbase']['server']['buckets'] = Chef::DataBagItem.load('couchbase', 'buckets')[node.chef_environment] rescue {}
+  username node['couchbase']['server']['username']
+  password node['couchbase']['server']['password']
+end

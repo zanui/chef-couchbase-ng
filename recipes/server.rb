@@ -130,21 +130,3 @@ couchbase_node "self" do
   username node['couchbase']['server']['username']
   password node['couchbase']['server']['password']
 end
-
-couchbase_cluster "default" do
-  memory_quota_mb node['couchbase']['server']['memory_quota_mb']
-
-  username node['couchbase']['server']['username']
-  password node['couchbase']['server']['password']
-end
-
-couchbase_settings "web" do
-  settings({
-    "username" => node['couchbase']['server']['username'],
-    "password" => node['couchbase']['server']['password'],
-    "port" => 8091,
-  })
-
-  username node['couchbase']['server']['username']
-  password node['couchbase']['server']['password']
-end

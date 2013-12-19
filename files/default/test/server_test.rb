@@ -68,9 +68,9 @@ describe_recipe "couchbase::server" do
 
   describe "default Couchbase cluster" do
     let(:cluster) do
-      couchbase_cluster("default", {
+      couchbase_cluster(node["couchbase"]["server"]["cluster"], {
         :username => node["couchbase"]["server"]["username"],
-        :password => node["couchbase"]["server"]["password"],
+        :password => node["couchbase"]["server"]["password"]
       })
     end
 

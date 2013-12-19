@@ -50,21 +50,50 @@ suites:
   run_list:
   - recipe[minitest-handler]
   - recipe[couchbase::server]
+  - recipe[couchbase::cluster]
+  - recipe[couchbase::buckets]
+  - recipe[couchbase::web]
   attributes:
     couchbase:
       server:
         password: "whatever"
+        cluster: "dev"
+        buckets:
+          memcachedtest:
+            cluster: "dev"
+            type: "memcached"
+            saslpassword: "nevertellanyone"
+            memory_quota_mb: 200
+          couchbasetest:
+            cluster: "dev"
+            type: "couchbase"
+            saslpassword: "nevertellanyone"
 
 - name: server-enterprise
   run_list:
   - recipe[minitest-handler]
   - recipe[couchbase::server]
+  - recipe[couchbase::cluster]
+  - recipe[couchbase::buckets]
+  - recipe[couchbase::web]
   attributes:
     couchbase:
       server:
         edition: "enterprise"
         password: "whatever"
-        version: "2.1.0"
+        version: "2.2.0"
+        cluster: "test"
+        buckets:
+          memcachedtest:
+            cluster: "test"
+            type: "memcached"
+            saslpassword: "nevertellanyone"
+            memory_quota_mb: 200
+
+          couchbasetest:
+            cluster: "test"
+            type: "couchbase"
+            saslpassword: "nevertellanyone"
 
 - name: moxi
   run_list:
