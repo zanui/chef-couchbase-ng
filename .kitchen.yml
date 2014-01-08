@@ -58,18 +58,20 @@ suites:
         name: "dev"
         username: "admin"
         password: "test1234"
-        memory_quota_mb: 500
+        memory_quota_mb: 512
       buckets:
-        memcachedtest:
+        one:
           cluster: "dev"
           type: "memcached"
           saslpassword: "nevertellanyone"
-          memory_quota_mb: 250
-        couchbasetest:
+          memory_quota_mb: 256
+          replicas: 0
+        two:
           cluster: "dev"
           type: "couchbase"
           saslpassword: "mustbedifferent"
           memory_quota_percent: 0.5
+          replicas: 1
 
 - name: server-enterprise
   run_list:
@@ -86,18 +88,20 @@ suites:
         name: "dev"
         username: "admin"
         password: "test1234"
-        memory_quota_mb: 500
+        memory_quota_mb: 512
       buckets:
-        memcachedtest:
+        one:
           cluster: "dev"
           type: "memcached"
           saslpassword: "nevertellanyone"
-          memory_quota_mb: 250
-        couchbasetest:
+          memory_quota_mb: 256
+          replicas: 0
+        two:
           cluster: "dev"
           type: "couchbase"
           saslpassword: "mustbedifferent"
           memory_quota_percent: 0.5
+          replicas: 1
 
 - name: moxi
   run_list:

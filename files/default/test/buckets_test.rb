@@ -5,41 +5,64 @@ describe_recipe "couchbase::buckets" do
 
   MiniTest::Chef::Resources.register_resource :couchbase_bucket, :username, :password
 
-  node['couchbase']['buckets'].each do |bucket_name, bucket_config|
-    bucket_config = {} if bucket_config.nil? or [TrueClass, FalseClass].include?(bucket_config.class)
+  # I'd love to have dynamic tests here based on node['couchbase']['buckets'],
+  # but MiniTest::Chef only exposes the nobe object in "it" blocks
+  describe "bucket one" do
+    let :bucket do
+      couchbase_bucket("one", {
+        :username => node["couchbase"]["server"]["username"],
+        :password => node["couchbase"]["server"]["password"],
+      })
+    end
 
-    describe "a bucket called #{bucket_name}" do
-      let :bucket do
-        couchbase_bucket(bucket_name, {
-          :username => node["couchbase"]["server"]["username"],
-          :password => node["couchbase"]["server"]["password"],
-        })
-      end
+    it "exists" do
+      assert bucket.exists
+    end
 
-      it "exists" do
-        assert bucket.exists
-      end
+    it "is correct type" do
+      bucket.must_have :type, "memcached"
+    end
 
-      it "is correct type" do
-        bucket.must_have :type, bucket_config['type']
-      end
+    it "has correct number of replicas" do
+      bucket.must_have :replicas, 0
+    end
 
-      it "has correct number of replicas" do
-        bucket.must_have :replicas, bucket_config['replicas']
-      end
+    it "has correct quota" do
+      bucket.must_have :memory_quota_mb, 256
+    end
 
-      it "has correct quota" do
-        bucket.must_have :memory_quota_mb, node['couchbase']['cluster']['memory_quota_mb']
-      end if bucket_config['memory_quota_mb']
-
-      it "has correct quota" do
-        bucket.must_have :memory_quota_mb, (node['couchbase']['cluster']['memory_quota_mb'] * bucket_config['memory_quota_percent']).to_i
-      end if bucket_config['memory_quota_percent']
-
-      it "has correct saslpassword" do
-        bucket.must_have :saslpassword, bucket_config['saslpassword']
-      end if bucket_config['saslpassword']
-
+    it "has correct saslpassword" do
+      bucket.must_have :saslpassword, "nevertellanyone"
     end
   end
+
+  describe "bucket two" do
+    let :bucket do
+      couchbase_bucket("two", {
+        :username => node["couchbase"]["server"]["username"],
+        :password => node["couchbase"]["server"]["password"],
+      })
+    end
+
+    it "exists" do
+      assert bucket.exists
+    end
+
+    it "is correct type" do
+      bucket.must_have :type, "couchbase"
+    end
+
+    it "has correct number of replicas" do
+      bucket.must_have :replicas, 1
+    end
+
+    it "has correct quota" do
+      bucket.must_have :memory_quota_mb, (node['couchbase']['cluster']['memory_quota_mb'] * 0.5).to_i
+    end
+
+    it "has correct saslpassword" do
+      bucket.must_have :saslpassword, "mustbedifferent"
+    end
+  end
+
 end
