@@ -48,11 +48,11 @@ class Chef
       end
 
       def replica_index(arg=nil)
-        set_or_return(:replica_index, arg, :kind_of => [TrueClass, FalseClass], :default => true)
+        set_or_return(:replica_index, arg, :kind_of => [TrueClass, FalseClass], :default => 1)
       end
 
       def flush_enabled(arg=nil)
-        set_or_return(:flush_enabled, arg, :kind_of => [TrueClass, FalseClass], :default => false)
+        set_or_return(:flush_enabled, arg, :kind_of => [TrueClass, FalseClass], :default => 0)
       end
 
       def initialize(*)
