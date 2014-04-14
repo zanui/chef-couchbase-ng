@@ -47,6 +47,14 @@ class Chef
         set_or_return(:saslpassword, arg, :kind_of => String, :default => "")
       end
 
+      def replica_index(arg=nil)
+        set_or_return(:replica_index, arg, :kind_of => [TrueClass, FalseClass], :default => true)
+      end
+
+      def flush_enabled(arg=nil)
+        set_or_return(:flush_enabled, arg, :kind_of => [TrueClass, FalseClass], :default => false)
+      end
+
       def initialize(*)
         super
         @action = :create
