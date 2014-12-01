@@ -5,8 +5,11 @@ driver_config:
   customize:
     memory: 1024
 
+provisioner:
+  name: chef_zero
+
 platforms:
-- name: ubuntu-13.04
+- name: debian-7.6
   run_list:
   - recipe[apt]
 
@@ -14,12 +17,15 @@ platforms:
   run_list:
   - recipe[apt]
 
-- name: ubuntu-10.04
-  run_list:
-  - recipe[apt]
-
 - name: centos-6.5
-- name: centos-5.10
+
+- name: windows-2012R2
+  transport:
+    name: winrm
+  driver_config:
+    box: win2012r2-datacenter-chef11.16.2
+    vm_hostname: couchbase
+    require_chef_omnibus: false
 
 suites:
 - name: server-community
@@ -47,6 +53,7 @@ suites:
   - recipe[minitest-handler]
   - recipe[couchbase::moxi]
   attributes: {}
+  excludes: ["windows-2012R2"]
 
 - name: client
   run_list:

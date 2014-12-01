@@ -51,7 +51,7 @@ end
 
 case node['platform']
 when "debian", "ubuntu"
-  package "libssl0.9.8"
+  package "libssl1.0.0"
   dpkg_package File.join(Chef::Config[:file_cache_path], node['couchbase']['server']['package_file'])
 when "redhat", "centos", "scientific", "amazon", "fedora"
   yum_package File.join(Chef::Config[:file_cache_path], node['couchbase']['server']['package_file']) do
@@ -118,6 +118,13 @@ directory node['couchbase']['server']['database_path'] do
   recursive true
 end
 
+directory node['couchbase']['server']['index_path'] do
+  owner "couchbase"
+  group "couchbase"
+  mode 0755
+  recursive true
+end
+
 service "couchbase-server" do
   supports :restart => true, :status => true
   action [:enable, :start]
@@ -126,6 +133,7 @@ end
 
 couchbase_node "self" do
   database_path node['couchbase']['server']['database_path']
+  index_path node['couchbase']['server']['index_path']
 
   username node['couchbase']['server']['username']
   password node['couchbase']['server']['password']

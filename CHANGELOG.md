@@ -1,3 +1,16 @@
+## v1.3.0 (2014-10-25)
+
+- Update to Couchbase 3.0.0.
+- Update to Moxi Server 2.5.0.
+- Update unit tests to rspec3
+- [GH-28] Added index_path
+
+## v1.2.0 (2014-04-10)
+
+- Update to Couchbase 2.2.0.
+- [GH-13] Add 'buckets' recipe to manipulate buckets.
+- [GH-19] Repair Ubuntu package name changes.
+
 ## v1.1.0
 
 - Update to Couchbase 2.0.1.
